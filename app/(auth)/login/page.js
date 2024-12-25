@@ -46,12 +46,8 @@ const Login = () => {
     >
       {(formik) => {
         return (
-          <form
-            onSubmit={formik.handleSubmit}
-            className='flex flex-col justify-between items-center w-[400px] shadow-2xl
-              shadow-slate-500 px-8 py-4 min-h-[400px] rounded-md'
-          >
-            <p className='text-3xl font-bold'>Sign in</p>
+          <form onSubmit={formik.handleSubmit} className='auth-form'>
+            <p className='text-3xl font-bold'>Login</p>
             {/* email */}
             <FormControl fullWidth>
               <TextField label='Email' {...formik.getFieldProps('email')} />
@@ -78,7 +74,7 @@ const Login = () => {
                 variant='contained'
                 color='secondary'
               >
-                login
+                sign in
               </Button>
 
               <Link
