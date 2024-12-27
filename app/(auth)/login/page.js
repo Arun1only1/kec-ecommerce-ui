@@ -1,22 +1,34 @@
 'use client';
 
+import $axios from '@/lib/axios/axios.instance';
 import { loginUserValidationSchema } from '@/validation-schema/login.user.validation.schema';
-import { Button, FormControl, FormHelperText, TextField } from '@mui/material';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormHelperText,
+  LinearProgress,
+  TextField,
+} from '@mui/material';
+import { useMutation } from '@tanstack/react-query';
 import { Formik } from 'formik';
-import axios from 'axios';
-import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 const Login = () => {
   const router = useRouter();
-  const handleSubmit = async (values) => {
-    try {
-      const response = await axios({
-        method: 'POST',
-        url: 'http://localhost:8080/user/login',
-        data: values,
-      });
 
+  const {
+    isPending,
+    error,
+    mutate: handleLogin,
+  } = useMutation({
+    mutationKey: ['login-user'],
+    mutationFn: async (values) => {
+      return await $axios.post('/user/login', values);
+    },
+    onSuccess: (response) => {
+      console.log(response);
       window.localStorage.setItem('token', response?.data?.accessToken);
       window.localStorage.setItem(
         'firstName',
@@ -29,65 +41,73 @@ const Login = () => {
       );
 
       router.push('/');
-    } catch (error) {
-      console.log('error aayo');
-    }
-  };
+    },
+
+    onError: (error) => {
+      console.log(error.response.data.message);
+    },
+  });
   return (
-    <Formik
-      initialValues={{
-        email: '',
-        password: '',
-      }}
-      validationSchema={loginUserValidationSchema}
-      onSubmit={(values) => {
-        handleSubmit(values);
-      }}
-    >
-      {(formik) => {
-        return (
-          <form onSubmit={formik.handleSubmit} className='auth-form'>
-            <p className='text-3xl font-bold'>Login</p>
-            {/* email */}
-            <FormControl fullWidth>
-              <TextField label='Email' {...formik.getFieldProps('email')} />
-              {formik.touched.email && formik.errors.email ? (
-                <FormHelperText error>{formik.errors.email}</FormHelperText>
-              ) : null}
-            </FormControl>
+    <Box>
+      {isPending && <LinearProgress color='secondary' />}
+      <Formik
+        initialValues={{
+          email: '',
+          password: '',
+        }}
+        validationSchema={loginUserValidationSchema}
+        onSubmit={(values) => {
+          handleLogin(values);
+        }}
+      >
+        {(formik) => {
+          return (
+            <form onSubmit={formik.handleSubmit} className='auth-form '>
+              <p className='text-3xl font-bold'>Login</p>
+              {/* email */}
+              <FormControl fullWidth>
+                <TextField label='Email' {...formik.getFieldProps('email')} />
+                {formik.touched.email && formik.errors.email ? (
+                  <FormHelperText error>{formik.errors.email}</FormHelperText>
+                ) : null}
+              </FormControl>
 
-            {/* password */}
-            <FormControl fullWidth>
-              <TextField
-                label='Password'
-                {...formik.getFieldProps('password')}
-              />
-              {formik.touched.password && formik.errors.password ? (
-                <FormHelperText error>{formik.errors.password}</FormHelperText>
-              ) : null}
-            </FormControl>
+              {/* password */}
+              <FormControl fullWidth>
+                <TextField
+                  label='Password'
+                  {...formik.getFieldProps('password')}
+                />
+                {formik.touched.password && formik.errors.password ? (
+                  <FormHelperText error>
+                    {formik.errors.password}
+                  </FormHelperText>
+                ) : null}
+              </FormControl>
 
-            <div className='w-full flex flex-col justify-center items-center'>
-              <Button
-                fullWidth
-                type='submit'
-                variant='contained'
-                color='secondary'
-              >
-                sign in
-              </Button>
+              <div className='w-full flex flex-col justify-center items-center'>
+                <Button
+                  fullWidth
+                  type='submit'
+                  variant='contained'
+                  color='secondary'
+                  disabled={isPending}
+                >
+                  sign in
+                </Button>
 
-              <Link
-                href='/register'
-                className='text-md underline text-blue-600 mt-2'
-              >
-                New here? Register
-              </Link>
-            </div>
-          </form>
-        );
-      }}
-    </Formik>
+                <Link
+                  href='/register'
+                  className='text-md underline text-blue-600 mt-2'
+                >
+                  New here? Register
+                </Link>
+              </div>
+            </form>
+          );
+        }}
+      </Formik>
+    </Box>
   );
 };
 
