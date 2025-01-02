@@ -24,7 +24,7 @@ const ProductCard = (props) => {
           <Typography variant='h5'>${props.price}</Typography>
         </Stack>
 
-        <Typography sx={{ textAlign: 'justify' }}>
+        <Typography sx={{ textAlign: 'justify', overflow: 'hidden' }}>
           {props.description}...
         </Typography>
         <Stack direction='row' justifyContent='space-between'>
