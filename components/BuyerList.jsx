@@ -2,10 +2,11 @@
 
 import $axios from '@/lib/axios/axios.instance';
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Loader from './Loader';
 import { Pagination } from '@mui/material';
 import ProductCard from './ProductCard';
+import { isBuyer } from '@/utils/check.role';
 
 const BuyerList = () => {
   const { data, isPending, error } = useQuery({
@@ -20,6 +21,8 @@ const BuyerList = () => {
     onError: (error) => {
       console.log(error);
     },
+
+    enabled: isBuyer(),
   });
 
   const productList = data?.data?.productList;

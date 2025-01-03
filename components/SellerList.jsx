@@ -1,41 +1,29 @@
 'use client';
 import $axios from '@/lib/axios/axios.instance';
 import { Pagination } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
 import Loader from './Loader';
 import ProductCard from './ProductCard';
+import { isSeller } from '@/utils/check.role';
 
 const SellerList = () => {
-  const [productList, setProductList] = useState([]);
-  const [isPending, setIsPending] = useState(false);
-  const [error, setError] = useState('');
   const [page, setPage] = useState(1);
 
-  useEffect(() => {
-    const getSellerProduct = async () => {
-      try {
-        setIsPending(true);
-        const res = await $axios.post('/product/seller/list', {
-          page: page,
-          limit: 2,
-        });
-
-        setIsPending(false);
-
-        setProductList(res?.data?.productList);
-
-        console.log(productList);
-      } catch (error) {
-        setError('Something went wrong.');
-        setIsPending(false);
-      }
-    };
-
-    getSellerProduct();
-  }, [page]);
+  const { isPending, data, error } = useQuery({
+    queryKey: ['seller-product-list'],
+    queryFn: async () => {
+      return await $axios.post('/product/seller/list', {
+        page: page,
+        limit: 2,
+      });
+    },
+    enabled: isSeller(),
+  });
+  const productList = data?.data?.productList;
 
   if (isPending) {
-    return <Loader />;
+    return <Loader isPending />;
   }
 
   if (error) {
