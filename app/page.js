@@ -1,6 +1,7 @@
 'use client';
-import BuyerList from '@/components/BuyerList';
-import SellerList from '@/components/SellerList';
+
+import BuyerList from '../components/BuyerList';
+import SellerList from '../components/SellerList';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';

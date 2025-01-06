@@ -1,4 +1,4 @@
-import $axios from '@/lib/axios/axios.instance';
+import $axios from '../lib/axios/axios.instance';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 import Button from '@mui/material/Button';
 import Dialog from '@mui/material/Dialog';

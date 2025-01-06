@@ -1,13 +1,13 @@
 'use client';
-import { Box, Button, Chip, Stack, Typography } from '@mui/material';
-import Image from 'next/image';
-import React from 'react';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import { useMutation } from '@tanstack/react-query';
-import $axios from '@/lib/axios/axios.instance';
+import { Button, Chip, Stack, Typography } from '@mui/material';
+import Image from 'next/image';
 import DeleteProductDialog from './DeleteProductDialog';
+import { isSeller } from '../utils/check.role';
+import { useRouter } from 'next/navigation';
 
 const ProductCard = (props) => {
+  const router = useRouter();
   const productId = props._id;
   return (
     <div className='w-[400px] shadow-2xl'>
@@ -31,12 +31,15 @@ const ProductCard = (props) => {
           {props.description}...
         </Typography>
         <Stack direction='row' justifyContent='space-between'>
-          <DeleteProductDialog productId={productId} />
+          {isSeller() && <DeleteProductDialog productId={productId} />}
 
           <Button
             color='success'
             variant='contained'
             startIcon={<VisibilityOutlinedIcon />}
+            onClick={() => {
+              router.push(`/product/details/${productId}`);
+            }}
           >
             View More
           </Button>

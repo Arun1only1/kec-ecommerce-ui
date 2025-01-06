@@ -1,7 +1,7 @@
 'use client';
 
-import $axios from '@/lib/axios/axios.instance';
-import { loginUserValidationSchema } from '@/validation-schema/login.user.validation.schema';
+import $axios from '../../../lib/axios/axios.instance';
+import { loginUserValidationSchema } from '../../../validation-schema/login.user.validation.schema';
 import {
   Box,
   Button,
@@ -48,8 +48,8 @@ const Login = () => {
       {isPending && <LinearProgress color='secondary' />}
       <Formik
         initialValues={{
-          email: '',
-          password: '',
+          email: 'supreme2@gmail.com',
+          password: 'Supreme@123',
         }}
         validationSchema={loginUserValidationSchema}
         onSubmit={(values) => {

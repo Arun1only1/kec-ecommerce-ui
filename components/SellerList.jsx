@@ -1,11 +1,11 @@
 'use client';
-import $axios from '@/lib/axios/axios.instance';
+import $axios from '../lib/axios/axios.instance';
 import { Pagination } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import Loader from './Loader';
 import ProductCard from './ProductCard';
-import { isSeller } from '@/utils/check.role';
+import { isSeller } from '../utils/check.role';
 
 const SellerList = () => {
   const [page, setPage] = useState(1);

@@ -13,7 +13,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
-import { redirect } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import * as React from 'react';
 
 const appName = 'Nepal Mart';
@@ -22,6 +22,7 @@ const navItems = ['Home', 'Products', 'Cart'];
 
 const Header = (props) => {
   const { window } = props;
+  const router = useRouter();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -32,7 +33,7 @@ const Header = (props) => {
   const handleLogout = () => {
     localStorage.clear();
 
-    redirect('/login');
+    router.push('/login');
   };
 
   const drawer = (
