@@ -31,9 +31,8 @@ const ProductCard = (props) => {
           {props.description}...
         </Typography>
         <Stack direction='row' justifyContent='space-between'>
-          {isSeller() && <DeleteProductDialog productId={productId} />}
-
           <Button
+            fullWidth
             color='success'
             variant='contained'
             startIcon={<VisibilityOutlinedIcon />}

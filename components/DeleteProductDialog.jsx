@@ -9,9 +9,11 @@ import DialogTitle from '@mui/material/DialogTitle';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import * as React from 'react';
 import Loader from './Loader';
+import { useRouter } from 'next/navigation';
 
 const DeleteProductDialog = (props) => {
   const [open, setOpen] = React.useState(false);
+  const router = useRouter();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -30,6 +32,7 @@ const DeleteProductDialog = (props) => {
     },
     onSuccess: () => {
       queryClient.refetchQueries('seller-product-list');
+      router.push('/');
     },
     onError: (error) => {
       console.log(error);

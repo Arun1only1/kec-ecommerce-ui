@@ -1,4 +1,4 @@
-import { productCategories } from '@/constants/general.constant';
+import { productCategories } from '../constants/general.constant';
 import * as Yup from 'yup';
 
 export const addProductValidationSchema = Yup.object({

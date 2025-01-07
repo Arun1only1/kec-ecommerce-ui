@@ -1,7 +1,7 @@
 'use client';
-import { productCategories } from '@/constants/general.constant';
-import $axios from '@/lib/axios/axios.instance';
-import { addProductValidationSchema } from '@/validation-schema/product.validation.schema';
+import { productCategories } from '../../../constants/general.constant';
+import $axios from '../../../lib/axios/axios.instance';
+import { addProductValidationSchema } from '../../../validation-schema/product.validation.schema';
 import {
   Box,
   Button,
