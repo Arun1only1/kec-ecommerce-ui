@@ -1,7 +1,6 @@
 'use client';
-import { Formik } from 'formik';
-import React, { useState } from 'react';
-import { registerUserValidationSchema } from '@/validation-schema/register.user.validation.schema';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import {
   Box,
   Button,
@@ -17,14 +16,14 @@ import {
   TextField,
   Typography,
 } from '@mui/material';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import Link from 'next/link';
-import { genders, roles } from '@/constants/general.constant';
 import { useMutation } from '@tanstack/react-query';
-import axios from 'axios';
+import { Formik } from 'formik';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import $axios from '@/lib/axios/axios.instance';
+import { useState } from 'react';
+import { genders, roles } from '../../../constants/general.constant';
+import $axios from '../../../lib/axios/axios.instance';
+import { registerUserValidationSchema } from '../../../validation-schema/register.user.validation.schema';
 
 const Register = () => {
   const router = useRouter();

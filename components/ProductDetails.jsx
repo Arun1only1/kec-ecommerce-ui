@@ -108,7 +108,6 @@ const ProductDetails = () => {
 
         {isBuyer() && (
           <>
-            {' '}
             <Stack
               direction='row'
               justifyContent='center'
@@ -135,11 +134,7 @@ const ProductDetails = () => {
               </IconButton>
             </Stack>
             {/* Add to Cart Button */}
-            <Button
-              variant='contained'
-              color='success'
-              className='bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-6 rounded-lg mt-4'
-            >
+            <Button variant='contained' color='success'>
               Add to Cart
             </Button>
           </>
