@@ -1,7 +1,4 @@
 'use client';
-import { productCategories } from '../../../constants/general.constant';
-import $axios from '../../../lib/axios/axios.instance';
-import { addProductValidationSchema } from '../../../validation-schema/product.validation.schema';
 import {
   Box,
   Button,
@@ -19,7 +16,9 @@ import {
 import { useMutation } from '@tanstack/react-query';
 import { Formik } from 'formik';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { productCategories } from '../../../constants/general.constant';
+import $axios from '../../../lib/axios/axios.instance';
+import { addProductValidationSchema } from '../../../validation-schema/product.validation.schema';
 
 const AddProduct = () => {
   const router = useRouter();
