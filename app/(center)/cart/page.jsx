@@ -11,6 +11,7 @@ import RemoveShoppingCartOutlinedIcon from "@mui/icons-material/RemoveShoppingCa
 import $axios from "../../../lib/axios/axios.instance";
 const CartPage = () => {
   const [deleteSwitch, setDeleteSwitch] = useState(false);
+
   // get cart list
   const { data, isPending } = useQuery({
     queryKey: ["cart-list", deleteSwitch],
@@ -19,7 +20,7 @@ const CartPage = () => {
   });
 
   const cartData = data?.data?.cartData;
-
+  const queryClient = useQueryClient();
   // flush cart
   const { isPending: flushCartPending, mutate } = useMutation({
     mutationKey: ["flush-cart"],
@@ -28,6 +29,7 @@ const CartPage = () => {
     },
     onSuccess: () => {
       setDeleteSwitch(!deleteSwitch);
+      queryClient.invalidateQueries(["cart-item-count"]);
     },
   });
   if (isPending || flushCartPending) {

@@ -25,7 +25,9 @@ const CartItemCard = (props) => {
     setCount((prevCount) => Math.max(prevCount - 1, 1));
 
   const cartItemId = props?._id;
+
   const queryClient = useQueryClient();
+
   // delete single cart item mutation
   const { isPending, mutate } = useMutation({
     mutationKey: ["delete-cart-item"],
@@ -40,7 +42,7 @@ const CartItemCard = (props) => {
 
   return (
     <Box>
-      {isPending && <LinearProgress />}
+      {isPending && <LinearProgress color="secondary" />}
       <div className="flex flex-col md:flex-row shadow-lg shadow-pink-300   mx-auto w-[700px] my-4 p-6 rounded-lg bg-white">
         <div className="w-full md:w-1/2 flex justify-center items-center">
           <Image

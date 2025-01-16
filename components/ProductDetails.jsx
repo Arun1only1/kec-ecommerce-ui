@@ -9,7 +9,7 @@ import {
   Stack,
   Typography,
 } from "@mui/material";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import Image from "next/image";
 import { useParams, useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -23,7 +23,7 @@ const ProductDetails = () => {
   const params = useParams();
   const router = useRouter();
   const [count, setCount] = React.useState(1);
-
+  const queryClient = useQueryClient();
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     if (typeof window !== undefined) {
@@ -66,6 +66,7 @@ const ProductDetails = () => {
       });
     },
     onSuccess: (res) => {
+      queryClient.invalidateQueries(["cart-item-count"]);
       // open snackbar
     },
 
