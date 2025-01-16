@@ -68,7 +68,7 @@ const Header = (props) => {
     window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: "flex", mb: "10rem" }}>
+    <Box sx={{ display: "flex", mb: "3rem" }}>
       <CssBaseline />
       <AppBar component="nav">
         <Toolbar className="bg-red-600 ">
