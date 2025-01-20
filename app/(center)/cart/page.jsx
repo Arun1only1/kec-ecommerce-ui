@@ -1,14 +1,16 @@
 "use client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import React, { useState } from "react";
-import CartItemCard from "../../../components/CartItemCard";
-import Loader from "../../../components/Loader";
-import { getCartList } from "../../../lib/routes/cart.routes";
-import CartEmpty from "../../../components/EmptyCart";
-import { isBuyer } from "../../../utils/check.role";
-import { Button } from "@mui/material";
+import { useState } from "react";
+import CartTable from "../../../components/CartTable";
+import CartAmount from "../../../components/CartAmount";
+
 import RemoveShoppingCartOutlinedIcon from "@mui/icons-material/RemoveShoppingCartOutlined";
+import { Button } from "@mui/material";
+import CartEmpty from "../../../components/EmptyCart";
+import Loader from "../../../components/Loader";
 import $axios from "../../../lib/axios/axios.instance";
+import { getCartList } from "../../../lib/routes/cart.routes";
+import { isBuyer } from "../../../utils/check.role";
 const CartPage = () => {
   const [deleteSwitch, setDeleteSwitch] = useState(false);
 
@@ -20,6 +22,7 @@ const CartPage = () => {
   });
 
   const cartData = data?.data?.cartData;
+  const subTotal = data?.data?.subTotal;
   const queryClient = useQueryClient();
   // flush cart
   const { isPending: flushCartPending, mutate } = useMutation({
@@ -51,10 +54,9 @@ const CartPage = () => {
       >
         flush cart
       </Button>
-      <div className=" flex  justify-center items-center flex-wrap gap-4 m-8">
-        {cartData.map((item) => {
-          return <CartItemCard key={item._id} {...item} />;
-        })}
+      <div className="flex justify-center  md:justify-around items-center  gap-4 md:p-8 w-full flex-wrap ">
+        <CartTable data={cartData} />
+        <CartAmount subTotal={subTotal} />
       </div>
     </>
   );

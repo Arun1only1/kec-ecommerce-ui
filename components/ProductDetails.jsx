@@ -18,6 +18,7 @@ import $axios from "../lib/axios/axios.instance";
 import { isBuyer, isSeller } from "../utils/check.role";
 import DeleteProductDialog from "./DeleteProductDialog";
 import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
+import { currency } from "../constants/general.constant";
 
 const ProductDetails = () => {
   const params = useParams();
@@ -114,7 +115,7 @@ const ProductDetails = () => {
           variant="h6"
           className="font-bold text-green-500 text-lg md:text-xl"
         >
-          Price: $ {productDetail?.price}
+          Price: {currency} {productDetail?.price}
         </Typography>
         <Stack
           direction="row"
